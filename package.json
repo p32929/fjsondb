@@ -29,5 +29,14 @@
     "Greeter"
   ],
   "author": "p32929",
-  "homepage": "https://github.com/p32929/FayFetch"
+  "homepage": "https://github.com/p32929/fjsondb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p32929/fjsondb.git"
+  },
+  "keywords": [
+    "Hello",
+    "Greeter"
+  ],
+  "author": "p32929"
 }
