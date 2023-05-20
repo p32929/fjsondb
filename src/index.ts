@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import * as fs from "fs";
 
 const obj = {
     fooValue: {
@@ -35,26 +35,67 @@ const obj = {
 
 export class Fjsondb {
     constructor(filePath: string) {
+        if (filePath.length === 0) {
+            throw "filePath cannot be empty"
+        }
+
+        if (!fs.existsSync(filePath)) {
+            const splittedSlashes = filePath.split("/");
+            const folderPath = splittedSlashes
+                .slice(0, splittedSlashes.length - 1)
+                .join("/");
+
+            if (!fs.existsSync(folderPath)) {
+                fs.mkdirSync(folderPath, { recursive: true });
+            }
+
+            fs.writeFileSync(filePath, JSON.stringify({}));
+        }
+
+
         obj.registerNewListener((newValue) => {
-            // writeFileSync(filePath, JSON.stringify(newValue))
+            fs.writeFileSync(filePath, JSON.stringify(newValue, null, 2))
             console.log(`newValue: ${JSON.stringify(newValue)}`)
         })
+
+        // const previousValues = JSON.parse(fs.readFileSync(filePath).toString())
+        // obj.foo = previousValues
     }
 
     set(key: string, value: any) {
-        obj.foo[key] = value
+        if (key === '') {
+            throw "key cannot be empty"
+        }
+
+        const data = {}
+        data[key] = value
+        obj.foo = data
     }
 
     get(key: string) {
+        if (key === '') {
+            throw "key cannot be empty"
+        }
+
         return obj.foo[key]
     }
 
     has(key: string) {
+        if (key === '') {
+            throw "key cannot be empty"
+        }
+
         return obj.foo[key] !== undefined
     }
 
     delete(key: string) {
-        delete obj.foo[key]
+        if (key === '') {
+            throw "key cannot be empty"
+        }
+
+        const prevData = obj.foo
+        delete prevData[key]
+        obj.foo = prevData
     }
 
     deleteAll() {
