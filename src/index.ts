@@ -48,7 +48,7 @@ export class Fjsondb {
 
         this.obj.registerNewListener((newValue) => {
             fs.writeFileSync(filePath, JSON.stringify(newValue, null, 2))
-            console.log(`newValue: ${JSON.stringify(newValue)}`)
+            // console.log(`newValue: ${JSON.stringify(newValue)}`)
         })
 
         const previousValues = JSON.parse(fs.readFileSync(filePath).toString())

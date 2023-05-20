@@ -1,6 +1,6 @@
 {
   "name": "fjsondb",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "license": "MIT",
   "main": "lib/index.js",
@@ -9,7 +9,6 @@
   "devDependencies": {
     "@types/jest": "^29.5.0",
     "@types/node": "^18.11.10",
-    "console-stamp": "^3.1.1",
     "jest": "^29.5.0",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
@@ -24,10 +23,6 @@
   "files": [
     "lib/**/*"
   ],
-  "keywords": [
-    "Hello",
-    "Greeter"
-  ],
   "author": "p32929",
   "homepage": "https://github.com/p32929/fjsondb",
   "repository": {
@@ -35,8 +30,13 @@
     "url": "git+https://github.com/p32929/fjsondb.git"
   },
   "keywords": [
-    "Hello",
-    "Greeter"
+    "json",
+    "database",
+    "jsondb",
+    "fjsondb",
+    "simple",
+    "fast",
+    "easy"
   ],
   "author": "p32929"
 }

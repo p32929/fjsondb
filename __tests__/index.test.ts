@@ -1,4 +1,3 @@
-require('console-stamp')(console, '[HH:MM:ss.l]');
 import { Fjsondb } from '../src/index'
 
 const jsonLocation = './data/test.json'
@@ -40,7 +39,7 @@ test('Normal operations', () => {
     expect(db.has("test2")).toBe(false)
 
     const db2 = new Fjsondb(jsonLocation)
-    const idk = db2.getJson()
+    const jsonData = db2.getJson()
     expect(db2.has("test3")).toBe(true)
     expect(db2.get("test3")).toBe(true)
     db2.deleteAll()
