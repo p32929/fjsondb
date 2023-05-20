@@ -1,39 +1,32 @@
 import * as fs from "fs";
 
-const obj = {
-    fooValue: {
-        // 
-    },
-    get foo() {
-        return this.fooValue;
-    },
-    set foo(val) {
-        this.fooValue = {
-            ...this.fooValue,
-            ...val,
-        };
-        this.fooListener(this.fooValue);
-    },
-    clear: function () {
-        this.fooValue = {}
-        this.fooListener(this.fooValue)
-    },
-    fooListener: function (newValue) {
-        // console.log(`New Value: ${JSON.stringify(val)}`)
-    },
-    registerNewListener: function (listener) {
-        this.fooListener = listener;
-    },
-};
-
-// Test listener
-// obj.foo = { idk: "1" };
-// obj.foo = { name: "1" };
-// obj.foo = { age: 1 };
-// obj.clear()
-// obj.foo = { age: 1 };
-
 export class Fjsondb {
+    obj = {
+        fooValue: {
+            // 
+        },
+        get foo() {
+            return this.fooValue;
+        },
+        set foo(val) {
+            this.fooValue = {
+                ...this.fooValue,
+                ...val,
+            };
+            this.fooListener(this.fooValue);
+        },
+        clear: function () {
+            this.fooValue = {}
+            this.fooListener(this.fooValue)
+        },
+        fooListener: function (newValue) {
+            // console.log(`New Value: ${JSON.stringify(val)}`)
+        },
+        registerNewListener: function (listener) {
+            this.fooListener = listener;
+        },
+    };
+
     constructor(filePath: string) {
         if (filePath.length === 0) {
             throw "filePath cannot be empty"
@@ -53,13 +46,17 @@ export class Fjsondb {
         }
 
 
-        obj.registerNewListener((newValue) => {
+        this.obj.registerNewListener((newValue) => {
             fs.writeFileSync(filePath, JSON.stringify(newValue, null, 2))
             console.log(`newValue: ${JSON.stringify(newValue)}`)
         })
 
-        // const previousValues = JSON.parse(fs.readFileSync(filePath).toString())
-        // obj.foo = previousValues
+        const previousValues = JSON.parse(fs.readFileSync(filePath).toString())
+        this.obj.foo = previousValues
+    }
+
+    getJson() {
+        return this.obj.foo
     }
 
     set(key: string, value: any) {
@@ -69,7 +66,7 @@ export class Fjsondb {
 
         const data = {}
         data[key] = value
-        obj.foo = data
+        this.obj.foo = data
     }
 
     get(key: string) {
@@ -77,7 +74,7 @@ export class Fjsondb {
             throw "key cannot be empty"
         }
 
-        return obj.foo[key]
+        return this.obj.foo[key]
     }
 
     has(key: string) {
@@ -85,7 +82,7 @@ export class Fjsondb {
             throw "key cannot be empty"
         }
 
-        return obj.foo[key] !== undefined
+        return this.obj.foo[key] !== undefined
     }
 
     delete(key: string) {
@@ -93,12 +90,12 @@ export class Fjsondb {
             throw "key cannot be empty"
         }
 
-        const prevData = obj.foo
+        const prevData = this.obj.foo
         delete prevData[key]
-        obj.foo = prevData
+        this.obj.foo = prevData
     }
 
     deleteAll() {
-        obj.clear()
+        this.obj.clear()
     }
 }
