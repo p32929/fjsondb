@@ -1,3 +1,4 @@
+require('console-stamp')(console, '[HH:MM:ss.l]');
 import { Fjsondb } from '../src/index'
 
 const jsonLocation = './data/test.json'
