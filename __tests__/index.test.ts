@@ -39,7 +39,6 @@ test('Normal operations', () => {
     expect(db.has("test2")).toBe(false)
 
     const db2 = new Fjsondb(jsonLocation)
-    const jsonData = db2.getJson()
     expect(db2.has("test3")).toBe(true)
     expect(db2.get("test3")).toBe(true)
     db2.deleteAll()
@@ -48,6 +47,21 @@ test('Normal operations', () => {
     expect(db2.has("newKey")).toBe(true)
     expect(db2.get("newKey")).toBe("newValue")
 
+    // 
+    db.incrementNumber("test1")
+    expect(db.get("test1")).toBe(1)
+    db.incrementNumber("test1")
+    expect(db.get("test1")).toBe(2)
+
+    db.decrementNumber("test2")
+    expect(db.get("test2")).toBe(-1)
+    db.decrementNumber("test2")
+    expect(db.get("test2")).toBe(-2)
+
+    const keys = db.getKeysByMatchedValue(2)
+    const keys2 = db.getKeysByMatchedValue("11")
+    expect(keys.length).toBe(1)
+    expect(keys2.length).toBe(1)
 });
 
 test('Crashes', () => {

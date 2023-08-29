@@ -73,6 +73,11 @@ const jsonLocation2 = './data/test2.json'
 const db2 = new Fjsondb(jsonLocation2)
 ```
 
+To increment/decrement a number:
+```
+db.decrementNumber("key")
+```
+
 ## License
 
 ```

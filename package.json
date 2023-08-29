@@ -1,7 +1,6 @@
 {
   "name": "fjsondb",
   "version": "0.0.4",
-  "main": "index.js",
   "license": "MIT",
   "main": "lib/index.js",
   "description": "A fast and simple JSON database for NodeJS",
@@ -10,6 +9,7 @@
     "@types/jest": "^29.5.0",
     "@types/node": "^18.11.10",
     "jest": "^29.5.0",
+    "nodemon": "^3.0.1",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2"
@@ -18,12 +18,13 @@
     "build": "tsc",
     "test": "jest --config jestconfig.json",
     "test:watch": "jest --config jestconfig.json --watchAll",
+    "main": "nodemon ./src/main.ts",
     "prepare": "npm run build"
   },
   "files": [
-    "lib/**/*"
+    "lib/index.js",
+    "lib/index.d.ts"
   ],
-  "author": "p32929",
   "homepage": "https://github.com/p32929/fjsondb",
   "repository": {
     "type": "git",

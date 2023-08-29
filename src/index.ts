@@ -1,7 +1,7 @@
 import * as fs from "fs";
 
 export class Fjsondb {
-    obj = {
+    private obj = {
         fooValue: {
             // 
         },
@@ -55,10 +55,26 @@ export class Fjsondb {
         this.obj.foo = previousValues
     }
 
+    //
     getJson() {
         return this.obj.foo
     }
 
+    getKeysByMatchedValue(value: any) {
+        const keys = Object.keys(this.obj.foo)
+        const values = Object.values(this.obj.foo)
+
+        const matchedKeys: string[] = []
+        for (var i = 0; i < values.length; i++) {
+            if (values[i] === value) {
+                matchedKeys.push(keys[i])
+            }
+        }
+
+        return matchedKeys
+    }
+
+    //
     set(key: string, value: any) {
         if (key === '') {
             throw "key cannot be empty"
@@ -95,6 +111,66 @@ export class Fjsondb {
         this.obj.foo = prevData
     }
 
+    //
+    incrementNumber(key: string, upsert = true) {
+        if (key === '') {
+            throw "key cannot be empty"
+        }
+
+        const value = this.obj.foo[key]
+        if (value === undefined) {
+            if (upsert) {
+                const data = {}
+                data[key] = 1
+                this.obj.foo = data
+            }
+            else {
+                throw "Value not found"
+            }
+        }
+        else {
+            const data = {}
+            if (typeof value === 'number') {
+                data[key] = value + 1
+                this.obj.foo = data
+            }
+            else {
+                throw "Only numbers can be incremented/decremented"
+            }
+        }
+    }
+
+    decrementNumber(key: string, upsert = true) {
+        if (key === '') {
+            throw "key cannot be empty"
+        }
+
+        const value = this.obj.foo[key]
+        if (value === undefined) {
+            if (upsert) {
+                const data = {}
+                data[key] = -1
+                this.obj.foo = data
+            }
+            else {
+                throw "Value not found"
+            }
+        }
+        else {
+            const data = {}
+            if (typeof value === 'number') {
+                data[key] = value - 1
+                this.obj.foo = data
+            }
+            else {
+                throw "Only numbers can be incremented/decremented"
+            }
+        }
+    }
+
+
+
+    //
     deleteAll() {
         this.obj.clear()
     }
