@@ -39,5 +39,9 @@
     "fast",
     "easy"
   ],
-  "author": "p32929"
+  "author": "p32929",
+  "funding": {
+    "type": "buymeacoffee",
+    "url": "https://www.buymeacoffee.com/p32929"
+  }
 }
