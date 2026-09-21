@@ -1,31 +1,40 @@
 # fjsondb
 
-A fast and simple JSON database for NodeJS
+A small, dependency-light JSON file database for Node.js and TypeScript. One file on disk, a key-value API, and no server to run — handy for CLIs, bots, prototypes and config.
 
-# Installation
+On npm: **[fjsondb](https://www.npmjs.com/package/fjsondb)**
 
-```
+## Features
+
+- **Plain JSON on disk** — open the file in any editor, it's just readable JSON
+- **Any value type** — numbers, strings, booleans, nested objects
+- **Counters built in** — `incrementNumber` / `decrementNumber`, with upsert by default
+- **Reverse lookup** — `getKeysByMatchedValue(value)` gives you every key holding that value
+- **Multiple instances** — one per file, as many as you like
+- **TypeScript** types included
+
+## Installation
+
+```bash
 npm install fjsondb
-```
-
-or
-
-```
+# or
 yarn add fjsondb
 ```
 
-# Usage
+## Usage
 
-First create an instance of Fjsondb with the location of where you'd like to save the data
+Create an instance with the path you'd like the data saved to (the folder is created if it doesn't exist):
 
-```
+```ts
+import { Fjsondb } from 'fjsondb'
+
 const jsonLocation = './data/test.json'
 const db = new Fjsondb(jsonLocation)
 ```
 
 After that, to set/save a data, use the set function like this (Literally any data type of value can be set/saved):
 
-```
+```ts
 db.set("test1", 1)
 db.set("test2", "1")
 db.set("test3", true)
@@ -40,32 +49,32 @@ db.set("key", {
 ```
 
 To get the data, use the get function:
-```
+```ts
 const savedValue = db.get("key")
 ```
 
 To check, if there's a value saved, use the has function:
-```
+```ts
 const isValueAvailable = db.has("key")
 ```
 
 To delete a value, use the delete function:
-```
+```ts
 db.delete("key")
 ```
 
 To get the full current JSON, use getJson function:
-```
+```ts
 const jsonData = db.getJson()
 ```
 
 To delete all data, use the deleteAll function:
-```
+```ts
 db.deleteAll()
 ```
 
 You can use multiple Fjsondb instances if you want like this:
-```
+```ts
 const jsonLocation = './data/test.json'
 const db = new Fjsondb(jsonLocation)
 
@@ -73,36 +82,48 @@ const jsonLocation2 = './data/test2.json'
 const db2 = new Fjsondb(jsonLocation2)
 ```
 
-To increment/decrement a number:
-```
+To increment or decrement a number (both create the key at 0 first if it's missing, unless you pass `upsert = false`):
+
+```ts
+db.incrementNumber("key")
 db.decrementNumber("key")
+```
+
+To find every key holding a given value:
+
+```ts
+const keys = db.getKeysByMatchedValue("value")
 ```
 
 ## License
 
-```
-MIT License
+MIT License — Copyright (c) 2022 Fayaz Bin Salam. See [LICENSE](LICENSE) for the full text.
 
-Copyright (c) 2020 Fayaz Bin Salam
+## Contributing
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Contributions are warmly welcomed and greatly appreciated! Whether it's a bug fix, new feature, or improvement, your input helps make this project better for everyone.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Before submitting a pull request, please:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+1. Create an issue describing the feature or bug fix you'd like to work on
+2. Wait for discussion and approval to ensure alignment with project goals
+3. Fork the repository and create your feature branch
+4. Submit your pull request with a clear description of changes
+
+This approach helps avoid duplicate efforts and ensures smooth collaboration. Thank you for considering contributing!
+
+## Share
+
+Sharing this repository with your friends is just one click away from here
+
+[![facebook](https://user-images.githubusercontent.com/6418354/179013321-ac1d1452-0689-493f-9066-940cf2302b6e.png)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/p32929/fjsondb/)
+[![twitter](https://user-images.githubusercontent.com/6418354/179013351-7d8d6d1c-4ce2-46ab-bef8-4c4765a1b888.png)](https://twitter.com/intent/tweet?url=https://github.com/p32929/fjsondb/)
+[![tumblr](https://user-images.githubusercontent.com/6418354/179013343-3111f55a-3b90-40c7-8487-9777348672b0.png)](https://www.tumblr.com/share?v=3&u=https://github.com/p32929/fjsondb/)
+[![pocket](https://user-images.githubusercontent.com/6418354/179013334-b095c45f-becf-49f4-9ee1-5a731a9b1f85.png)](https://getpocket.com/save?url=https://github.com/p32929/fjsondb/)
+[![pinterest](https://user-images.githubusercontent.com/6418354/179013331-44cd9206-11b1-4b65-becb-5863b61c828f.png)](https://pinterest.com/pin/create/button/?url=https://github.com/p32929/fjsondb/)
+[![reddit](https://user-images.githubusercontent.com/6418354/179013338-7416ae3f-73ba-4522-86e1-1374d7082d22.png)](https://www.reddit.com/submit?url=https://github.com/p32929/fjsondb/)
+[![linkedin](https://user-images.githubusercontent.com/6418354/179013327-ca7b7102-1da8-4b1c-858f-1a6e5f21bd70.png)](https://www.linkedin.com/shareArticle?mini=true&url=https://github.com/p32929/fjsondb/)
+[![whatsapp](https://user-images.githubusercontent.com/6418354/179013353-f477fa0b-3e6f-4138-a357-c9991b23ff88.png)](https://api.whatsapp.com/send?text=https://github.com/p32929/fjsondb/)
 
 ---
 
